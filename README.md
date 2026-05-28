@@ -21,15 +21,41 @@
 
 ## 🛠️ 安装与使用指南
 
-### 方法 1: 使用 CLI 下载脚本
-你可以使用内置的便捷脚本直接克隆本仓库技能至你的代理配置目录中：
+### 方法 1: 使用 Vercel Open Agent Skills (npx skills) (强烈推荐)
+
+本仓库与 Vercel 团队开发的 `vercel-labs/skills` 框架原生兼容。AI Agent 或开发者可以直接利用 `npx skills` 无缝下载并集成特定的音乐技能，无需手动克隆或处理路径！
+
+* **添加播放控制核心技能**：
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/agent-lx-music
+  ```
+* **添加歌曲发现与推荐技能**：
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/music-discovery
+  ```
+* **添加歌曲音频分析与歌词技能**：
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/audio-analysis
+  ```
+* **添加智能伴听与守护技能**：
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/listening-companion
+  ```
+
+#### 💡 技能管理小贴士
+* **列出已安装的技能**：`npx skills list`
+* **一键更新所有技能**：`npx skills update`
+* **移除某个技能**：`npx skills remove <skill-name>`
+
+### 方法 2: 使用 Git 完整克隆
+你也可以将本仓库克隆至你的代理配置目录中：
 ```bash
-# 克隆或下载技能到本地的 agents 技能集路径下
+# 将全部技能下载到本地代理技能目录
 git clone https://github.com/Xuepoo/agent-lx-music-skills.git ~/.gemini/antigravity-cli/skills/
 ```
 
-### 方法 2: 独立拉取
-如果只想拉取特定的技能文件，可配合 `curl` 直接拉取其中的 `SKILL.md` 描述：
+### 方法 3: 单个技能独立拉取 (Curl)
+如果只想拉取特定的技能文件，可直接使用 `curl` 下载 `SKILL.md` 到指定目录：
 ```bash
 curl -o SKILL.md https://raw.githubusercontent.com/Xuepoo/agent-lx-music-skills/main/agent-lx-music/SKILL.md
 ```

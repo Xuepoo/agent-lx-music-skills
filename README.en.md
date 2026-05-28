@@ -19,13 +19,39 @@
 
 ## 🛠️ Installation & Usage
 
-### Method 1: Direct Clone
-You can clone this dedicated repository directly into your Agent's config skills path:
+### Method 1: Using Vercel Open Agent Skills (npx skills) (Highly Recommended)
+
+This repository is fully compatible with Vercel's `vercel-labs/skills` framework. AI agents or developers can dynamically install and register individual music skills via simple commands without manual clones!
+
+* **Add Core Controller Skill**:
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/agent-lx-music
+  ```
+* **Add Music Discovery & Leaderboards Skill**:
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/music-discovery
+  ```
+* **Add Lyrics & Covers Audio Analysis Skill**:
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/audio-analysis
+  ```
+* **Add Smart Listening Companion Skill**:
+  ```bash
+  npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/listening-companion
+  ```
+
+#### 💡 Management Commands
+* **List Installed Skills**: `npx skills list`
+* **Update All Skills**: `npx skills update`
+* **Remove a Skill**: `npx skills remove <skill-name>`
+
+### Method 2: Full Git Clone
+You can clone the entire repository directly into your Agent's config skills path:
 ```bash
 git clone https://github.com/Xuepoo/agent-lx-music-skills.git ~/.gemini/antigravity-cli/skills/
 ```
 
-### Method 2: Single Skill Retrieval
+### Method 3: Single Skill Retrieval (Curl)
 To retrieve a single skill dynamically, fetch the raw markdown file using `curl`:
 ```bash
 curl -o SKILL.md https://raw.githubusercontent.com/Xuepoo/agent-lx-music-skills/main/agent-lx-music/SKILL.md
