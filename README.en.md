@@ -2,7 +2,7 @@
 
 > **Dedicated AI Agent Skills Repository for agent-lx-music (alx)**
 
-`agent-lx-music-skills` is a specialized, lightweight repository hosting modular AI Agent Skills tailored for `agent-lx-music` (alx). It empowers AI coding agents (such as Claude Code, Gemini CLI, Codex, etc.) to immediately gain capabilities like cross-platform search, queue operations, concurrent downloads, leaderboard exploration, and playlist manipulations without cloning the entire player source tree.
+`agent-lx-music-skills` is a specialized, lightweight repository hosting modular AI Agent Skills tailored for `agent-lx-music` (alx). It empowers AI coding agents (such as Hermes, OpenClaw, Codex, etc.) to immediately gain capabilities like cross-platform search, queue operations, concurrent downloads, leaderboard exploration, and playlist manipulations without cloning the entire player source tree.
 
 ---
 

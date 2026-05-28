@@ -2,7 +2,7 @@
 
 > **AI 智能代理专属的音乐播放控制与超能力技能库**
 
-`agent-lx-music-skills` 是一个专门为 `agent-lx-music` (alx) CLI 工具定制的 AI Agent Skills (智能技能) 仓库。它能够让如 Claude Code、Gemini CLI、Codex 等 AI 代理无缝加载，使其立即掌握搜歌、放歌、播放队列管理、高并发下载以及歌单维护的硬核超能力！
+`agent-lx-music-skills` 是一个专门为 `agent-lx-music` (alx) CLI 工具定制的 AI Agent Skills (智能技能) 仓库。它能够让如 Hermes、OpenClaw、Codex 等 AI 代理无缝加载，使其立即掌握搜歌、放歌、播放队列管理、高并发下载以及歌单维护的硬核超能力！
 
 通过将技能与原包体解耦，用户与代理无需完整克隆庞大的主工程仓库，即可直接独立拉取本仓库的技能开始智能听歌旅程。
 
