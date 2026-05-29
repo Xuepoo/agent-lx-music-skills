@@ -1,80 +1,83 @@
 ---
 name: audio-analysis
-description: "Inspect downloaded track waves or query APIs to analyze audio parameters like BPM, Key, Energy, and Valence."
-version: 1.0.0
-author: agent-lx-music project
+description: "Inspect downloaded track waves using sonic-bridge CLI to analyze dynamic tempo, acoustic timbral brightness, and spatiotemporal chords under the LRMD protocol."
+version: 2.0.0
+author: agent-lx-music project & sonic-bridge
 license: MIT
 metadata:
   hermes:
-    tags: [music, analysis, bpm, key, signal-processing]
+    tags: [music, analysis, bpm, key, dsp, lrmd, sonic-bridge]
     related_skills: [agent-lx-music]
 ---
 
-# Audio & Music Analysis Skill
+# Audio & Music Analysis Skill (Powered by SonicBridge)
 
-## Overview
+## 1. Overview
 
-This skill guides AI agents in performing deep signal-processing analysis or metadata lookups on music tracks. By analyzing audio parameters such as **BPM (Beats Per Minute)**, **Musical Key / Scale (e.g. C Major, A Minor)**, and **energy metrics**, the agent can help users categorize playlists, match tempos for workouts or DJ sets, and explore composition structures.
+This skill guides AI agents in performing deep signal-processing analysis on local music tracks using the high-performance **`sonic-bridge`** Rust engine. 
+
+Instead of relying on heavy pre-trained models or complex external Python libraries, the agent invokes `sonic-bridge` to decouple raw waveforms into **LRMD (LLM-Readable Music Descriptor) reports**. This allows pure-text LLMs to "listen to" and "appreciate" the dynamic tempo, timbral changes, and chord progressions of any cover version or original master track with millisecond-level precision.
 
 ---
 
-## Technical Analysis Approaches
+## 2. Technical Analysis via SonicBridge CLI
 
-### Approach 1: Audio Metadata API Integration
-Agents can query open music repositories (such as AcousticBrainz, Spotify Audio Features, or MusicBrainz) using song metadata to fetch precise pre-computed acoustic features.
+When a track is downloaded locally via `alx download <id>`, the agent should call the `sonic-bridge` CLI tool to parse its acoustic structure.
 
-```json
-{
-  "title": "晴天",
-  "singer": "周杰伦",
-  "bpm": 84,
-  "key": "G Major",
-  "valence": 0.52,
-  "energy": 0.48,
-  "danceability": 0.58,
-  "time_signature": "4/4"
-}
-```
+### Command-Line Usage
 
-### Approach 2: Native Audio Waveform Extraction (CLI Signal Processing)
-When the track is downloaded locally via `alx download <id>`, the agent can run local CLI signal processing tools (such as `aubio`, `ffmpeg`, or custom scripts using `librosa` / `essentia` / `madmom` models) to analyze the audio file.
-
-#### 1. BPM / Tempo Detection
-Identify the rhythmic rate of the song:
 ```bash
-# Using aubio CLI tool to detect tempo (BPM) on downloaded track
-aubiopitch -i "/path/to/song.mp3"
-aubiotempo -i "/path/to/song.mp3"
-```
+# 1. Standard Spatiotemporal Analysis (Default 5s step)
+sonic-bridge "/path/to/song.mp3"
 
-#### 2. Key & Scale Detection
-Analyze spectral pitch classes (chroma) to determine the tonic key:
-```python
-# Conceptual ESSENTIA key extractor Python script
-import essentia.standard as es
-loader = es.MonoLoader(filename="song.flac")
-audio = loader()
-key_extractor = es.KeyExtractor()
-key, scale, strength = key_extractor(audio)
-print(f"Key: {key} {scale} (Strength: {strength})")
+# 2. Parameterized Adaptive Analysis (e.g. 1.0s interval tracking)
+sonic-bridge "/path/to/song.mp3" --config "/path/to/custom_config.toml"
+
+# 3. Approach B: Event-Driven Onset Adaptive Segmentation (Highly Recommended for Fast Tracks)
+sonic-bridge "/path/to/fast_melody_song.mp3" --onset
+
+# 4. Cross-Version Comparative Analysis (DTW Aligner)
+sonic-bridge "/path/to/original.mp3" "/path/to/cover_version.mp3"
 ```
 
 ---
 
-## Agent Usage Patterns
+## 3. LRMD Protocol Specifications
 
-### Pattern 1: Automatic Tempo-Matched Playlist
-Build a playlist with songs matching a target BPM range (e.g. 120-130 BPM for jogging):
-1. Query search cache or local music files.
-2. Filter tracks matching the desired tempo.
-3. Automatically load them into a running queue:
-```bash
-# Retrieve track metadata and filter for workout tempo (e.g. 125 BPM)
-alx search "workout hits" --json | jq -r '.list[] | select(.bpm >= 120 and .bpm <= 130) | .id' | while read id; do
-    alx queue add "$id"
-done
+The `sonic-bridge` tool automatically generates a `<filename>.lrmd.md` report in the same directory. The agent must read this file to interpret the musical metadata.
+
+### Example LRMD Structure (Parsed by LLM)
+
+```markdown
+# SonicBridge: LLM-Readable Music Descriptor (LRMD)
+
+## 1. Global Acoustic & Musicological Metadata
+- **Filename**: `Gareth.T - 玻璃.mp3`
+- **Duration**: `9.86 seconds`
+- **Tempo (BPM)**: `120.0 BPM` (Moderate & Flowing)
+- **Estimated Key**: `F Major`
+
+## 2. Spatiotemporal Track Analysis (Adaptive Onset Intervals)
+| Timeline | Chord | Dynamic Intensity | Timbral Brightness | Rhythmic & Transient Activity |
+| :--- | :--- | :--- | :--- | :--- |
+| **0.0s - 0.6s** | `Unknown` | Exploding Intensity (Fortissimo) | Bright & Crisp (Sharp transients) | Steady Beat |
+| **0.6s - 0.6s** | `A` | Exploding Intensity (Fortissimo) | Warm & Smooth (Mellow mid-range) | Steady Beat |
+| **0.6s - 0.7s** | `Am` | Exploding Intensity (Fortissimo) | Warm & Smooth (Mellow mid-range) | Steady Beat |
+| **0.7s - 1.0s** | `F` | Exploding Intensity (Fortissimo) | Balanced & Clear (Vocal presence) | Steady Beat |
 ```
 
-### Pattern 2: Harmonious Transition Analysis
-Advise the user on key matches (Camelot Wheel / Circle of Fifths) for smooth playlist progression:
-- Track A (G Major / 9B) transitions harmoniously into Track B (D Major / 10B, C Major / 8B, or E Minor / 9A).
+---
+
+## 4. Agent Companionship & Conversation Patterns
+
+By interpreting the LRMD report, the Agent can provide connoisseur-level music companionship and emotional alignment.
+
+### Conversation Pattern 1: Multi-Version Comparative Critique
+When the user plays a cover version of a song, the agent can call `process_comparative` and discuss the aesthetic difference:
+* **Agent Dialogue Prompt**:
+  > *"Compared to Eason Chan's original version which relies on a lush, wet reverb space (RT60 ~2.4s) to build cinematic gravity, the acoustic cover you are playing right now is ultra-minimalistic. The single acoustic guitar has dry, close-mic transient attacks, and the singer’s voice features heavy breathiness (Airy Timbre), creating a profoundly intimate, heartbreaking kitchen-table conversation vibe."*
+
+### Conversation Pattern 2: Causal Harmonic Resolution Guidance
+Explain how the musical tension resolves to comfort the user's mood:
+* **Agent Dialogue Prompt**:
+  > *"I noticed that at the 0.6s mark of this intro, the arrangement performs a rapid harmonic shift from A Major to A Minor, which resolves into F Major at 0.7s. That fleeting subdominant-to-tonic tension release is precisely why this song feels so comforting yet melancholic."*
