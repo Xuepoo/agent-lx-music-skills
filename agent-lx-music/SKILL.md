@@ -170,6 +170,7 @@ All commands support `--json` for structured output. Example search result:
 - `hot` = `board`
 - `explore` = `discover`
 
-## Verbose Mode
+## Verbose & Debug Mode
 
-Use `--verbose` or `-v` for debug output showing which sources are queried, HTTP requests, and JS sandbox execution details.
+- Use `--verbose` or `-v` for general CLI verbose logging (showing which sources are queried and HTTP requests).
+- Use `--debug` or `-d` to explicitly enable the underlying JS script engine's console log outputs (`[JS] ...` traces) for runtime API details.
