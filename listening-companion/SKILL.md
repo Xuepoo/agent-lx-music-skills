@@ -33,7 +33,7 @@ Large multimodal models can ingest high-quality audio files directly. When equip
 
 When a user initiates the Listening Companion mode:
 
-```
+```text
                   ┌──────────────────────┐
                   │ 1. User plays music  │
                   └──────────┬───────────┘
@@ -55,7 +55,9 @@ When a user initiates the Listening Companion mode:
 ```
 
 ### Automation Script Example
+
 The agent can fetch the currently active song, download a 30-60 second preview or the full audio, fetch the cached lyrics, and submit them to the multimodal interface:
+
 ```bash
 # Step 1: Resolve currently active song metadata
 SONG_INFO=$(alx now --json)
@@ -66,14 +68,26 @@ alx download "$SONG_ID"
 alx lyric "$SONG_ID" --save
 ```
 
+### MCP Integration
+
+If the host registers the built-in `alx mcp` server (v0.4.0+), the steps above map to single structured calls — `status` instead of `alx now --json`, `lyric_get` instead of `alx lyric`, and `download_add` / `download_status` instead of `alx download` — returning compact JSON without subprocess parsing:
+
+```json
+{
+  "mcpServers": { "alx": { "command": "alx", "args": ["mcp"] } }
+}
+```
+
 ---
 
 ## Sample Companion Dialogues
 
 ### Scenario 1: Analyzing Instrument and Production Choices
+
 - **User**: "This guitar solo sounds so warm and organic. What gear or techniques are they using here?"
-- **Companion (Model Listening to Audio)**: *"Ah, that's a gorgeous tone. Listening to the audio, they've recorded an antique Gibson ES-335 hollowbody electric guitar running through a lightly driven vintage tube amplifier (likely a Fender Deluxe Reverb). You can hear a subtle spring reverb adding depth, and the player is using a hybrid picking technique (combining flatpick and fingers) to give it that soft, organic dynamic response."*
+- **Companion (Model Listening to Audio)**: _"Ah, that's a gorgeous tone. Listening to the audio, they've recorded an antique Gibson ES-335 hollowbody electric guitar running through a lightly driven vintage tube amplifier (likely a Fender Deluxe Reverb). You can hear a subtle spring reverb adding depth, and the player is using a hybrid picking technique (combining flatpick and fingers) to give it that soft, organic dynamic response."_
 
 ### Scenario 2: Lyrical and Vocal Resonance
+
 - **User**: "Why does this chorus hit so hard emotionally?"
-- **Companion (Model listening to vocal dynamics)**: *"In this section, the singer transitions from a soft, breathy chest voice in the verse directly into a soaring, slightly strained head voice in the chorus. The model's audio captures a slight vocal fry on the words '[02:14.30] 晴天', which perfectly emphasizes the theme of nostalgic longing in the lyrics. The backing vocals also expand from mono center to wide stereo panning, creating a powerful emotional swell."*
+- **Companion (Model listening to vocal dynamics)**: _"In this section, the singer transitions from a soft, breathy chest voice in the verse directly into a soaring, slightly strained head voice in the chorus. The model's audio captures a slight vocal fry on the words '[02:14.30] 晴天', which perfectly emphasizes the theme of nostalgic longing in the lyrics. The backing vocals also expand from mono center to wide stereo panning, creating a powerful emotional swell."_

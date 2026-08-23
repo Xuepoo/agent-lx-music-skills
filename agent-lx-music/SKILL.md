@@ -21,6 +21,7 @@ All commands support `--json` output and `--quiet` to suppress non-data output.
 ## Quick Command Reference
 
 ### Search
+
 ```bash
 alx search "keyword"                   # Search all platforms
 alx search "keyword" --source kw       # Search specific platform (kw/wy/kg)
@@ -30,6 +31,7 @@ alx search "keyword" --json            # JSON output
 ```
 
 ### Playback
+
 ```bash
 alx play <cli_id>                      # Play by search result ID
 alx play <cli_id> --quality flac24bit  # Play with specific quality
@@ -49,6 +51,7 @@ alx quit                              # Kill mpv daemon
 ```
 
 ### Download
+
 ```bash
 alx download add <id>                          # Download single song
 alx download add <id1> <id2> <id3>             # Download multiple songs
@@ -60,6 +63,7 @@ alx download retry <task_id>                   # Retry failed download
 ```
 
 ### Playlists
+
 ```bash
 alx playlist list                      # List all playlists
 alx playlist create "name"            # Create playlist
@@ -75,6 +79,7 @@ alx playlist import file.m3u --name "name"  # Import
 ```
 
 ### Favorites
+
 ```bash
 alx fav list                          # List favorites
 alx fav add                           # Add current song
@@ -84,6 +89,7 @@ alx fav play                          # Play all favorites
 ```
 
 ### Lyrics & Cover
+
 ```bash
 alx lyric                             # Lyrics for current song
 alx lyric <id>                        # Lyrics for specific song
@@ -95,6 +101,7 @@ alx pic <id> --save                   # Download cover art
 ```
 
 ### Source Management
+
 ```bash
 alx source list                       # List installed sources
 alx source add <path_or_url>          # Add source script
@@ -105,6 +112,7 @@ alx source info <id>                  # Detailed source info
 ```
 
 ### Board & Discover
+
 ```bash
 alx board                             # List available charts
 alx board --source wy --id wy-hot    # Songs in a chart
@@ -116,6 +124,7 @@ alx discover play <playlist-id>       # Play recommended playlist
 ```
 
 ### Queue
+
 ```bash
 alx queue show                        # Show current queue
 alx queue add <id>                    # Add to queue
@@ -126,6 +135,7 @@ alx queue clear                       # Clear queue
 ```
 
 ### Local Library
+
 ```bash
 alx local scan                        # Scan download dir (or beets)
 alx local list                        # List indexed files
@@ -133,6 +143,7 @@ alx local play <index>                # Play local file
 ```
 
 ### Config
+
 ```bash
 alx config                            # Show all config
 alx config get <key>                  # Get value
@@ -158,6 +169,25 @@ All commands support `--json` for structured output. Example search result:
   }
 ]
 ```
+
+## MCP Integration (v0.4.0+)
+
+Since v0.4.0, `alx` ships a built-in stdio MCP server (`alx mcp`; JSON-RPC 2.0 NDJSON, MCP `2024-11-05` subset; protocol frames on stdout, diagnostics on stderr). Register it once and drive `alx` through structured tool calls instead of shelling out:
+
+```json
+{
+  "mcpServers": {
+    "alx": {
+      "command": "alx",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+Exposed tools (18): `search`, `play`, `playback_control`, `skip`, `status`, `queue_list` / `queue_add` / `queue_remove` / `queue_clear`, `playlist_list` / `playlist_show` / `playlist_add` / `playlist_remove`, `favorite_add` / `favorite_list`, `lyric_get`, `download_add` / `download_status`.
+
+Prefer MCP tools over CLI subprocess calls when the host supports it: no human-readable output parsing, compact JSON results with stable `cli_id`s, and consistent 0-based queue indexes (the CLI stays 1-based). Note that `playback_control` never cold-starts mpv. Fall back to the plain commands above for flags without an MCP equivalent (`seek`, `volume`, source/board/discover management).
 
 ## Aliases
 

@@ -10,12 +10,14 @@
 
 ## 🚀 包含的技能模块 (Included Skills)
 
-| 技能名称 (Skill Name) | 核心职责 (Core Responsibilities) |
-| :--- | :--- |
-| **[agent-lx-music](./agent-lx-music/SKILL.md)** | `alx` 播放器控制的基础核心技能，涵盖全部 v0.2.1 的 CLI 命令语法（播放、状态、队列等） |
-| **[music-discovery](./music-discovery/SKILL.md)** | 智能音乐探索技能，支持网易云等排行榜（ board ）与个性化推荐（ discover ）的智能拉取与一键激活播放 |
-| **[audio-analysis](./audio-analysis/SKILL.md)** | 音频分析与歌词、封面获取管理技能（ lyric 与 pic 命令的智能调度） |
-| **[listening-companion](./listening-companion/SKILL.md)** | AI 智能音乐伴听与状态智能巡检守护技能 |
+| 技能名称 (Skill Name)                                     | 核心职责 (Core Responsibilities)                                                                  |
+| :-------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+| **[agent-lx-music](./agent-lx-music/SKILL.md)**           | `alx` 播放器控制的基础核心技能，涵盖全部 v0.2.1 的 CLI 命令语法（播放、状态、队列等）             |
+| **[music-discovery](./music-discovery/SKILL.md)**         | 智能音乐探索技能，支持网易云等排行榜（ board ）与个性化推荐（ discover ）的智能拉取与一键激活播放 |
+| **[audio-analysis](./audio-analysis/SKILL.md)**           | 音频分析与歌词、封面获取管理技能（ lyric 与 pic 命令的智能调度）                                  |
+| **[listening-companion](./listening-companion/SKILL.md)** | AI 智能音乐伴听与状态智能巡检守护技能                                                             |
+
+> **v0.4.0 新增**：`alx mcp` 内置 stdio MCP 服务器，暴露 18 个结构化工具（搜索、播放、队列、歌单、收藏、歌词、下载）。支持 MCP 的宿主（opencode、Claude Desktop 等）注册后即可直接以结构化调用驱动 `alx`，详见 [agent-lx-music](./agent-lx-music/SKILL.md) 的 MCP Integration 章节。
 
 ---
 
@@ -25,37 +27,49 @@
 
 本仓库与 Vercel 团队开发的 `vercel-labs/skills` 框架原生兼容。AI Agent 或开发者可以直接利用 `npx skills` 无缝下载并集成特定的音乐技能，无需手动克隆或处理路径！
 
-* **添加播放控制核心技能**：
+- **添加播放控制核心技能**：
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/agent-lx-music
   ```
-* **添加歌曲发现与推荐技能**：
+
+- **添加歌曲发现与推荐技能**：
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/music-discovery
   ```
-* **添加歌曲音频分析与歌词技能**：
+
+- **添加歌曲音频分析与歌词技能**：
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/audio-analysis
   ```
-* **添加智能伴听与守护技能**：
+
+- **添加智能伴听与守护技能**：
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/listening-companion
   ```
 
 #### 💡 技能管理小贴士
-* **列出已安装的技能**：`npx skills list`
-* **一键更新所有技能**：`npx skills update`
-* **移除某个技能**：`npx skills remove <skill-name>`
+
+- **列出已安装的技能**：`npx skills list`
+- **一键更新所有技能**：`npx skills update`
+- **移除某个技能**：`npx skills remove <skill-name>`
 
 ### 方法 2: 使用 Git 完整克隆
+
 你也可以将本仓库克隆至你的代理配置目录中：
+
 ```bash
 # 将全部技能下载到本地代理技能目录
 git clone https://github.com/Xuepoo/agent-lx-music-skills.git ~/.gemini/antigravity-cli/skills/
 ```
 
 ### 方法 3: 单个技能独立拉取 (Curl)
+
 如果只想拉取特定的技能文件，可直接使用 `curl` 下载 `SKILL.md` 到指定目录：
+
 ```bash
 curl -o SKILL.md https://raw.githubusercontent.com/Xuepoo/agent-lx-music-skills/main/agent-lx-music/SKILL.md
 ```
@@ -63,5 +77,6 @@ curl -o SKILL.md https://raw.githubusercontent.com/Xuepoo/agent-lx-music-skills/
 ---
 
 ## 🌐 语言支持 (Languages)
-* [中文说明 (README.md)](./README.md)
-* [English Guide (README.en.md)](./README.en.md)
+
+- [中文说明 (README.md)](./README.md)
+- [English Guide (README.en.md)](./README.en.md)
