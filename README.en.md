@@ -8,12 +8,14 @@
 
 ## 🚀 Included Skills
 
-| Skill Folder | Core Responsibilities |
-| :--- | :--- |
-| **[agent-lx-music](./agent-lx-music/SKILL.md)** | Core controller skill covering basic CLI operations (play, pause, volume, status, repeat, shuffle) tailored for v0.2.1 |
-| **[music-discovery](./music-discovery/SKILL.md)** | Discovery helper automating leaderboard browsing (`alx board`) and recommended playlists (`alx discover`) |
-| **[audio-analysis](./audio-analysis/SKILL.md)** | Metadata extraction automating cover art downloads and lyric fetching |
-| **[listening-companion](./listening-companion/SKILL.md)** | Smart daemon monitor tracking player history and playback logs |
+| Skill Folder                                              | Core Responsibilities                                                                                                  |
+| :-------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| **[agent-lx-music](./agent-lx-music/SKILL.md)**           | Core controller skill covering basic CLI operations (play, pause, volume, status, repeat, shuffle) tailored for v0.2.1 |
+| **[music-discovery](./music-discovery/SKILL.md)**         | Discovery helper automating leaderboard browsing (`alx board`) and recommended playlists (`alx discover`)              |
+| **[audio-analysis](./audio-analysis/SKILL.md)**           | Metadata extraction automating cover art downloads and lyric fetching                                                  |
+| **[listening-companion](./listening-companion/SKILL.md)** | Smart daemon monitor tracking player history and playback logs                                                         |
+
+> **New in v0.4.0**: `alx mcp` built-in stdio MCP server exposing 18 structured tools (search, playback, queue, playlists, favorites, lyrics, downloads). MCP-capable hosts (opencode, Claude Desktop, etc.) can register it and drive `alx` through structured tool calls — see the MCP Integration section in [agent-lx-music](./agent-lx-music/SKILL.md).
 
 ---
 
@@ -23,36 +25,48 @@
 
 This repository is fully compatible with Vercel's `vercel-labs/skills` framework. AI agents or developers can dynamically install and register individual music skills via simple commands without manual clones!
 
-* **Add Core Controller Skill**:
+- **Add Core Controller Skill**:
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/agent-lx-music
   ```
-* **Add Music Discovery & Leaderboards Skill**:
+
+- **Add Music Discovery & Leaderboards Skill**:
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/music-discovery
   ```
-* **Add Lyrics & Covers Audio Analysis Skill**:
+
+- **Add Lyrics & Covers Audio Analysis Skill**:
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/audio-analysis
   ```
-* **Add Smart Listening Companion Skill**:
+
+- **Add Smart Listening Companion Skill**:
+
   ```bash
   npx skills add https://github.com/Xuepoo/agent-lx-music-skills/tree/main/listening-companion
   ```
 
 #### 💡 Management Commands
-* **List Installed Skills**: `npx skills list`
-* **Update All Skills**: `npx skills update`
-* **Remove a Skill**: `npx skills remove <skill-name>`
+
+- **List Installed Skills**: `npx skills list`
+- **Update All Skills**: `npx skills update`
+- **Remove a Skill**: `npx skills remove <skill-name>`
 
 ### Method 2: Full Git Clone
+
 You can clone the entire repository directly into your Agent's config skills path:
+
 ```bash
 git clone https://github.com/Xuepoo/agent-lx-music-skills.git ~/.gemini/antigravity-cli/skills/
 ```
 
 ### Method 3: Single Skill Retrieval (Curl)
+
 To retrieve a single skill dynamically, fetch the raw markdown file using `curl`:
+
 ```bash
 curl -o SKILL.md https://raw.githubusercontent.com/Xuepoo/agent-lx-music-skills/main/agent-lx-music/SKILL.md
 ```
@@ -60,5 +74,6 @@ curl -o SKILL.md https://raw.githubusercontent.com/Xuepoo/agent-lx-music-skills/
 ---
 
 ## 🌐 Internationalization
-* [Chinese Guide (README.md)](./README.md)
-* [English Guide (README.en.md)](./README.en.md)
+
+- [Chinese Guide (README.md)](./README.md)
+- [English Guide (README.en.md)](./README.en.md)
